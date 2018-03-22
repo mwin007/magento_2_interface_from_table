@@ -55,7 +55,7 @@ The repository exposes the following methods:
 - __Update a table entity__
 ```
 [PUT] {{base_url}}/V1/api/<module>/<model>
-    ```
+```
 
 #### (4) A SearchResult class and interface for querying and filtering its collection
 
