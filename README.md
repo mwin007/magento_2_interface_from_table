@@ -44,8 +44,11 @@ The repository exposes the following methods:
 [GET] {{base_url}}/V1/api/<module>/<model>
 ```
 
-    The repository makes use of Magento 2's powerful `SearchCriteriaInterface`.
-    You can read more about how to build a search criteria from Magento 2's official Docs: http://devdocs.magento.com/guides/v2.1/rest/performing-searches.html
+- __* Note__
+
+  - The repository makes use of Magento 2's powerful `SearchCriteriaInterface`.
+  - You can read more about how to build a search criteria from Magento 2's official Docs: http://devdocs.magento.com/guides/v2.1/rest/performing-searches.html
+
 
 - __Add a new table entity__
 ```
