@@ -1,0 +1,41 @@
+
+    <!-- Get {{model_name_lowercase}} by ID -->
+    <route method="GET" url="/V1/api/{{route_path}}/{{model_name_lowercase}}/:id">
+        <service class="{{module_namespace}}\Api\{{model_name}}RepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="Magento_Backend::admin"/>
+        </resources>
+    </route>
+
+    <!-- Get {{model_name_lowercase}} collection -->
+    <route method="GET" url="/V1/api/{{route_path}}/{{model_name_lowercase}}">
+        <service class="{{module_namespace}}\Api\{{model_name}}RepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Magento_Backend::admin"/>
+        </resources>
+    </route>
+
+    <!-- Save a {{model_name_lowercase}} -->
+    <route method="POST" url="/V1/api/{{route_path}}/{{model_name_lowercase}}">
+        <service class="{{module_namespace}}\Api\{{model_name}}RepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Magento_Backend::admin"/>
+        </resources>
+    </route>
+
+    <!-- Update a {{model_name_lowercase}} -->
+    <route method="PUT" url="/V1/api/{{route_path}}/{{model_name_lowercase}}">
+        <service class="{{module_namespace}}\Api\{{model_name}}RepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Magento_Backend::admin"/>
+        </resources>
+    </route>
+
+    <!-- Delete a {{model_name_lowercase}} -->
+    <route method="DELETE" url="/V1/api/{{route_path}}/{{model_name_lowercase}}/:id">
+        <service class="{{module_namespace}}\Api\{{model_name}}RepositoryInterface" method="delete"/>
+        <resources>
+            <resource ref="Magento_Backend::admin"/>
+        </resources>
+    </route>
+</routes>

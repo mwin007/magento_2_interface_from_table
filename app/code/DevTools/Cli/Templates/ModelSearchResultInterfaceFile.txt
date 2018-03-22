@@ -1,0 +1,19 @@
+<?php
+
+namespace {{module_namespace}}\Api\Data;
+
+use Magento\Framework\Api\SearchResultsInterface;
+
+interface {{model_name}}SearchResultInterface extends SearchResultsInterface
+{
+    /**
+     * @return \{{module_namespace}}\Api\Data\{{model_name}}Interface[]
+     */
+    public function getItems();
+
+    /**
+     * @param \{{module_namespace}}\Api\Data\{{model_name}}Interface[] $items
+     * @return void
+     */
+    public function setItems(array $items);
+}

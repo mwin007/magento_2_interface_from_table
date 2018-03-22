@@ -1,0 +1,17 @@
+
+    /**
+     * {@inheritdoc}
+     */
+    public function get{{attribute_function_name}}()
+    {
+        return $this->_getData('{{attribute_code}}');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function set{{attribute_function_name}}(${{attribute_as_variable_name}})
+    {
+        $this->setData('{{attribute_code}}', ${{attribute_as_variable_name}});
+        return $this;
+    }

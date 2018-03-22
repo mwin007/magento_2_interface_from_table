@@ -1,0 +1,11 @@
+<?php
+
+namespace {{module_namespace}}\Model;
+
+use Magento\Framework\Api\SearchResults;
+use {{module_namespace}}\Api\Data\{{model_name}}SearchResultInterface;
+
+class {{model_name}}SearchResult extends SearchResults implements {{model_name}}SearchResultInterface
+{
+
+}

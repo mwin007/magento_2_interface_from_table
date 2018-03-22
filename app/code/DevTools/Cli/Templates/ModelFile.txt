@@ -1,0 +1,31 @@
+<?php
+
+namespace {{module_namespace}}\Model;
+
+use {{module_namespace}}\Api\Data\{{model_name}}Interface;
+use Magento\Framework\Model\AbstractModel;
+
+class {{model_name}} extends AbstractModel implements {{model_name}}Interface
+{
+    const CACHE_TAG = '{{table_name}}';
+
+    protected $_cacheTag = '{{table_name}}';
+
+    protected $_eventPrefix = '{{table_name}}';
+
+    protected function _construct()
+    {
+        $this->_init('{{module_namespace}}\Model\ResourceModel\{{model_name}}');
+    }
+
+    public function getIdentities()
+    {
+        return [self::CACHE_TAG . '_' . $this->getId()];
+    }
+
+    public function getDefaultValues()
+    {
+        $values = [];
+
+        return $values;
+    }

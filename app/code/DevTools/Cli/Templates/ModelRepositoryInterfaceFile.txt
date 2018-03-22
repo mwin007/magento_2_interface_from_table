@@ -1,0 +1,48 @@
+<?php
+
+/**
+ *
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+namespace {{module_namespace}}\Api;
+
+use Magento\Framework\Api\SearchCriteriaInterface;
+use {{module_namespace}}\Api\Data\{{model_name}}Interface;
+use {{module_namespace}}\Api\Data\{{model_name}}SearchResultInterface;
+
+/**
+ * @api
+ */
+interface {{model_name}}RepositoryInterface
+{
+    /**
+     * Get {{model_name_lowercase}} info
+     * @param int $id
+     * @return \{{module_namespace}}\Api\Data\{{model_name}}Interface
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function getById($id);
+
+    /**
+     * Save {{model_name_lowercase}}
+     * @param \{{module_namespace}}\Api\Data\{{model_name}}Interface ${{model_name_lowercase}}
+     * @return \{{module_namespace}}\Api\Data\{{model_name}}Interface
+     */
+    public function save({{model_name}}Interface ${{model_name_lowercase}});
+
+    /**
+     * Delete {{model_name_lowercase}}
+     * @param int $id
+     * @return null
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function delete($id);
+
+    /**
+     * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
+     * @return \{{module_namespace}}\Api\Data\{{model_name}}SearchResultInterface
+     */
+    public function getList(SearchCriteriaInterface $searchCriteria);
+}

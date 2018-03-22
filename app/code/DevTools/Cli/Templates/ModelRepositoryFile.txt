@@ -1,0 +1,136 @@
+<?php
+
+/**
+ * Copyright 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+namespace {{module_namespace}}\Model;
+
+use Magento\Framework\Api\SearchCriteriaInterface;
+use Magento\Framework\Api\SortOrder;
+use Magento\Framework\Exception\NoSuchEntityException;
+
+use {{module_namespace}}\Api\{{model_name}}RepositoryInterface;
+use {{module_namespace}}\Api\Data\{{model_name}}Interface;
+use {{module_namespace}}\Api\Data\{{model_name}}SearchResultInterfaceFactory;
+use {{module_namespace}}\Model\ResourceModel\{{model_name}}\CollectionFactory as {{model_name}}CollectionFactory;
+use {{module_namespace}}\Model\ResourceModel\{{model_name}}\Collection;
+use {{module_namespace}}\Model\ResourceModel\{{model_name}} as Resource{{model_name}};
+
+class {{model_name}}Repository implements {{model_name}}RepositoryInterface
+{
+    protected $_{{model_name_lowercase}}Factory;
+    protected $_{{model_name_lowercase}}CollectionFactory;
+    protected $_{{model_name_lowercase}}SearchResultFactory;
+    protected $_resource{{model_name}};
+
+    /**
+     * Constructor
+     */
+    public function __construct(
+        {{model_name}}Factory ${{model_name_lowercase}}Factory,
+        {{model_name}}CollectionFactory ${{model_name_lowercase}}CollectionFactory,
+        {{model_name}}SearchResultInterfaceFactory ${{model_name_lowercase}}SearchResultInterfaceFactory,
+        Resource{{model_name}} $resource{{model_name}}
+    )
+    {
+        $this->_{{model_name_lowercase}}Factory = ${{model_name_lowercase}}Factory;
+        $this->_{{model_name_lowercase}}CollectionFactory = ${{model_name_lowercase}}CollectionFactory;
+        $this->_{{model_name_lowercase}}SearchResultFactory = ${{model_name_lowercase}}SearchResultInterfaceFactory;
+        $this->_resource{{model_name}} = $resource{{model_name}};
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getById($id)
+    {
+        ${{model_name_lowercase}} = $this->_{{model_name_lowercase}}Factory->create();
+        ${{model_name_lowercase}}->getResource()->load(${{model_name_lowercase}}, $id);
+
+        if (!${{model_name_lowercase}}->getId()) {
+            throw new NoSuchEntityException(__('Unable to find {{model_name_lowercase}} with ID "%1"', $id));
+        }
+
+        return ${{model_name_lowercase}};
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function save({{model_name}}Interface ${{model_name_lowercase}})
+    {
+        ${{model_name_lowercase}}->getResource()->save(${{model_name_lowercase}});
+        return ${{model_name_lowercase}};
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function delete($id)
+    {
+        ${{model_name_lowercase}} = $this->_{{model_name_lowercase}}Factory->create();
+        ${{model_name_lowercase}}->getResource()->load(${{model_name_lowercase}}, $id);
+
+        if (!${{model_name_lowercase}}->getId()) {
+            throw new NoSuchEntityException(__('Unable to find {{model_name_lowercase}} with ID "%1"', $id));
+        }
+
+        ${{model_name_lowercase}}->getResource()->delete(${{model_name_lowercase}});
+        return;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getList(SearchCriteriaInterface $searchCriteria)
+    {
+        $collection = $this->_{{model_name_lowercase}}CollectionFactory->create();
+
+        $this->addFiltersToCollection($searchCriteria, $collection);
+        $this->addSortOrdersToCollection($searchCriteria, $collection);
+        $this->addPagingToCollection($searchCriteria, $collection);
+
+        $collection->load();
+
+        return $this->buildSearchResult($searchCriteria, $collection);
+    }
+
+    private function addFiltersToCollection(SearchCriteriaInterface $searchCriteria, Collection $collection)
+    {
+        foreach ($searchCriteria->getFilterGroups() as $filterGroup) {
+            $fields = $conditions = [];
+            foreach ($filterGroup->getFilters() as $filter) {
+                $fields[] = $filter->getField();
+                $conditions[] = [$filter->getConditionType() => $filter->getValue()];
+            }
+            $collection->addFieldToFilter($fields, $conditions);
+        }
+    }
+
+    private function addSortOrdersToCollection(SearchCriteriaInterface $searchCriteria, Collection $collection)
+    {
+        foreach ((array) $searchCriteria->getSortOrders() as $sortOrder) {
+            $direction = $sortOrder->getDirection() == SortOrder::SORT_ASC ? 'asc' : 'desc';
+            $collection->addOrder($sortOrder->getField(), $direction);
+        }
+    }
+
+    private function addPagingToCollection(SearchCriteriaInterface $searchCriteria, Collection $collection)
+    {
+        $collection->setPageSize($searchCriteria->getPageSize());
+        $collection->setCurPage($searchCriteria->getCurrentPage());
+    }
+
+    private function buildSearchResult(SearchCriteriaInterface $searchCriteria, Collection $collection)
+    {
+        $searchResults = $this->_{{model_name_lowercase}}SearchResultFactory->create();
+
+        $searchResults->setSearchCriteria($searchCriteria->setFilterGroups([])->setSortOrders([]));
+        $searchResults->setItems($collection->getItems());
+        $searchResults->setTotalCount($collection->getSize());
+
+        return $searchResults;
+    }
+}

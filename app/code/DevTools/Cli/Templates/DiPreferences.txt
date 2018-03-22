@@ -1,0 +1,10 @@
+
+    <preference for="{{module_namespace}}\Api\{{model_name}}RepositoryInterface"
+                type="{{module_namespace}}\Model\{{model_name}}Repository" />
+
+    <preference for="{{module_namespace}}\Api\Data\{{model_name}}Interface"
+                type="{{module_namespace}}\Model\{{model_name}}" />
+
+    <preference for="{{module_namespace}}\Api\Data\{{model_name}}SearchResultInterface"
+                type="{{module_namespace}}\Model\{{model_name}}SearchResult"/>
+</config>

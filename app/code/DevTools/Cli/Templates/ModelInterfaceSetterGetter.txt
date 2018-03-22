@@ -1,0 +1,15 @@
+
+    /**
+     * Get {{attribute_function_comment}}
+     *
+     * @return {{attribute_type}}
+     */
+    public function get{{attribute_function_name}}();
+
+    /**
+     * Set {{attribute_function_comment}}
+     *
+     * @param {{attribute_type}}
+     * @return $this
+     */
+    public function set{{attribute_function_name}}(${{attribute_as_variable_name}});
